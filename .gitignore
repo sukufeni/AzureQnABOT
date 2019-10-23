@@ -1,0 +1,13 @@
+
+*.pub
+/.android/*
+/.AndroidStudio3.5/*
+/Videos/*
+*.data
+source/*
+.vs/*
+bin/*
+appsettings.json
+*.json
+*.ini
+obj/*

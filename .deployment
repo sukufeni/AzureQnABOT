@@ -1,0 +1,2 @@
+[config]
+SCM_SCRIPT_GENERATOR_ARGS=--aspNetCore "c:\users\bruno vieira\google drive\puc\22019\projeto interdisciplinar\botazure\slackbotcsharp\slackbot\slackbot.csproj"
