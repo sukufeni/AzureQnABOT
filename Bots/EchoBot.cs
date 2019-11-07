@@ -44,6 +44,7 @@ namespace SlackBot.Bots
             var results = await EchoBotQnA.GetAnswersAsync(turnContext);
             if (results.Any())
             {
+                if (turnContext.Activity.Text.Equals("/start")) await turnContext.SendActivityAsync(MessageFactory.Text($"Olá! :D"), cancellationToken);
                 await turnContext.SendActivityAsync(MessageFactory.Text(results.First().Answer), cancellationToken);
             }
             else
