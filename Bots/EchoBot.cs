@@ -3,6 +3,7 @@
 //
 // Generated with Bot Builder V4 SDK Template for Visual Studio EchoBot v4.5.0
 
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,17 +11,21 @@ using Microsoft.Bot.Builder;
 using Microsoft.Bot.Schema;
 using System.Linq;
 using Microsoft.Bot.Builder.AI.QnA;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace SlackBot.Bots
 {
     public class EchoBot : ActivityHandler
     {
         public QnAMaker EchoBotQnA { get; private set; }
+
         public EchoBot(QnAMakerEndpoint endpoint)
         {
             // connects to QnA Maker endpoint for each turn
             EchoBotQnA = new QnAMaker(endpoint);
         }
+
+        private string[] names = { "Euler", "Caio", "Bernardo", "Jefersson", "Daniel", "Edu", "Bot" };
 
 
         protected override async Task OnMessageActivityAsync(ITurnContext<IMessageActivity> turnContext, CancellationToken cancellationToken)
@@ -44,12 +49,14 @@ namespace SlackBot.Bots
             var results = await EchoBotQnA.GetAnswersAsync(turnContext);
             if (results.Any())
             {
-                if (turnContext.Activity.Text.Equals("/start")) await turnContext.SendActivityAsync(MessageFactory.Text($"Olá! :D"), cancellationToken);
+                if (turnContext.Activity.Text.Equals("/start")) await turnContext.SendActivityAsync(MessageFactory.Text($"Olá! Eu sou o {names[new Random().Next(names.Length - 1)]}:D"), cancellationToken);
                 await turnContext.SendActivityAsync(MessageFactory.Text(results.First().Answer), cancellationToken);
             }
             else
             {
                 await turnContext.SendActivityAsync(MessageFactory.Text("Desculpe, Não consegui entender sua pergunta :/"), cancellationToken);
+                turnContext.Activity.Text = "Default";
+                await AccessQnAMaker(turnContext, cancellationToken);
             }
         }
     }
