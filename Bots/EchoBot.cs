@@ -25,14 +25,16 @@ namespace SlackBot.Bots
             EchoBotQnA = new QnAMaker(endpoint);
         }
 
+        //Possible welcome names
         private string[] names = { "Euler", "Caio", "Bernardo", "Jefersson", "Daniel", "Edu", "Bot" };
 
-
+        //Endpoint that listens the incoming messages
         protected override async Task OnMessageActivityAsync(ITurnContext<IMessageActivity> turnContext, CancellationToken cancellationToken)
         {
             await AccessQnAMaker(turnContext, cancellationToken);
             //await turnContext.SendActivityAsync(MessageFactory.Text(turnContext.Activity.Text), cancellationToken);
         }
+
 
         protected override async Task OnMembersAddedAsync(IList<ChannelAccount> membersAdded, ITurnContext<IConversationUpdateActivity> turnContext, CancellationToken cancellationToken)
         {
