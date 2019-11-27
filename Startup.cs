@@ -36,6 +36,7 @@ namespace SlackBot
                 Host = Configuration.GetValue<string>($"QnAEndpointHostName")
             });
 
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // Create the Bot Framework Adapter with error handling enabled.
